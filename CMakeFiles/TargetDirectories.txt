@@ -1,0 +1,3 @@
+/home/incoming/multiplayer-chess/CMakeFiles/main.dir
+/home/incoming/multiplayer-chess/CMakeFiles/edit_cache.dir
+/home/incoming/multiplayer-chess/CMakeFiles/rebuild_cache.dir
