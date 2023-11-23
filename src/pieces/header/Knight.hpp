@@ -1,7 +1,3 @@
-#include<stdio>
-#include<stdlib>
-#include<string>
-#include<regex>
 #ifndef KNIGHT_HPP
 #define KNIGHT_HPP
 
@@ -18,11 +14,16 @@ class Knight: public Pieces{
 
 
 		/*
+		 * output: deconstructor
+		 */
+		~Knight();
+
+		/*
 		 * output: all the possible moves that the piece can do while still being a legal move
 		 * return: 2D array of all the possible moves.
 		 * note: the logic to check if the move is legal should have been implemented in the board class
 		 */
-		int[][] getPossibleMoves();
+		int[][] getPossibleMoves() const;
 }
 
 //
