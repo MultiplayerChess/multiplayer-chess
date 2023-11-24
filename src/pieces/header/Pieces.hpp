@@ -16,6 +16,11 @@ class Pieces {
 		Pieces();
 		
 		/*
+		 * output: destructor
+		 */
+		~Pieces();
+
+		/*
 		 * return: color of piece
 		 */
 		std::string getColor() const;
