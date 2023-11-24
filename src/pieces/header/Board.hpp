@@ -15,22 +15,26 @@ class Board {
 		 */
 		Board();
 		
+		/*
+		 * output: destructor
+		 */
+		~Board();
 
 		/*
 		 * param: the move to be made by piece
 		 * return: if move is valid, return true. Else, return false.
 		 * note: it will also check if the King is or will be in check.
 		 */
-		bool isValidMove(int[2] currentPos, int[2] newPos);
+		static bool isValidMove(int* currentPos, int* newPos, std::vector<Pieces> alivePieces);
 
 
 		/*
-		 * param: list of all the pieces on the board
+		 * param: list of all the pieces specified in vector
 		 * return: list of all occupied squares. (color ambiguous)
 		 */
-		int[][] getOccupiedSquares(std::vector<Pieces> alivePieces);
+		std::vector<std::vector<int>> getOccupiedSquares(std::vector<Pieces> alivePieces);
 	private:
-		int board_*;
+		int board_**;
 }
 
 
