@@ -1,3 +1,5 @@
+
+
 #include "header/Pieces.hpp"
 
 Pieces::Pieces(){}
@@ -29,4 +31,12 @@ bool Pieces::getStatus() const {
 
 void Pieces::setStatus(bool alive) {
 	alive_ = alive;
+}
+
+void Pieces::setName(std::string& name) {
+	name_ = name;
+}
+
+std::string Pieces::getName() const {
+	return name_;
 }
