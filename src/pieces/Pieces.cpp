@@ -30,3 +30,11 @@ bool Pieces::getStatus() const {
 void Pieces::setStatus(bool alive) {
 	alive_ = alive;
 }
+
+void Pieces::setName(const std::string& name) {
+  name_ = name;
+}
+
+std::string getName() const {
+  return name_
+}

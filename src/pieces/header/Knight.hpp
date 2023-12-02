@@ -13,6 +13,11 @@ class Knight: public Pieces{
 		Knight(int* pos, std::string color);
 
 		/*
+		 * output: deconstructor
+		 */
+		~Knight();
+
+		/*
 		 * output: all the possible moves that the piece can do while still being a legal move
 		 * return: 2D array of all the possible moves.
 		 * note: the logic to check if the move is legal should have been implemented in the board class
