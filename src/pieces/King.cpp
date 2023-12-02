@@ -22,12 +22,20 @@ std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPi
       int* position = new int[2];
       position[0] = currentPos[0]+i;
       position[1] = currentPos[1]+j;
+<<<<<<< HEAD
+=======
+      if(!(position[0] >= 0 && position[0] < 8 && position[1] >= 0 && position[1] < 8)) { continue;} 
+>>>>>>> b68ae93a1d388cb60cdf998477878589d152709e
       // ANOTHER FOR LOOP
       bool tof = false;
       for(int k = 0; k < ownPieces.size(); k++) {
         int* ownPiecePos = new int[2];
         ownPiecePos = ownPieces[k].getPosition();
+<<<<<<< HEAD
         if(!(posit  ion[0] == ownPiecePos[0] && position[1] == ownPiecePos[1])) {
+=======
+        if(!(position[0] == ownPiecePos[0] && position[1] == ownPiecePos[1])) {
+>>>>>>> b68ae93a1d388cb60cdf998477878589d152709e
           free(ownPiecePos);
           continue;
         } else {
