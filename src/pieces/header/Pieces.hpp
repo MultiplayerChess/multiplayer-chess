@@ -29,18 +29,18 @@ class Pieces {
 		 * param: color
 		 * output: changes the color to specified color
 		 */
-		void setColor(std::string& color);
+		void setColor(const std::string& color);
 
 		/*
 		 * return: the position of the piece on the board
 		 */
-		int[2] getPosition() const;
+		int* getPosition() const;
 		
 		/*
 		 * param: position to be set to
 		 * output: sets the position to that position if it's a valid move
 		 */
-		void setPosition(const int[2] position);
+		void setPosition(const int* position[2]);
 		
 		/*
 		 * output: if piece is alive or not
@@ -69,7 +69,7 @@ class Pieces {
 		std::string getName() const;
 
 	private:
-		int[2] position_;
+		int* position_ = new int[2];
 		std::string color_:
 		bool alive_;
 		std::string name_;
