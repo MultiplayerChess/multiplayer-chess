@@ -11,7 +11,7 @@ Board::~Board()	{
 	delete[] board_**;
 }
 
-static bool Board::isValidMove(int* currentPos, int* newPos, std::vector<Pieces> ownPieces) {
+static bool Board::isValidMove(int* currentPos, int* newPos, std::vector<Pieces> ownPieces, std::vector<Pieces> enemyPieces) {
 	std::vector<std::vector<int>> occupied = getOccupiedSquares(std::vector<Pieces> ownPieces);
 	
 	bool tof = true;
@@ -27,4 +27,14 @@ static bool Board::isValidMove(int* currentPos, int* newPos, std::vector<Pieces>
 	}
 
 	// to implement checking if will be in check.
+	
+	for(int i = 0; i < ownPieces.size(); i++) {
+		if(strcmp(ownPieces[i].getName(),"King") == 0) {
+		  tof = !ownPieces[i].isInCheck(enemyPieces, ownPieces);
+      // this is in a not statement because isInCheck returns true if it is in check.
+      // If it is in check, we want to return false <3
+		} 
+	}
+  return tof;
+
 }

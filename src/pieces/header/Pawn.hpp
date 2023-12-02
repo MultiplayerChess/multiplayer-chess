@@ -11,19 +11,18 @@ class Pawn: public Pieces{
 	 */
 
 	Pawn(int* position, std::string color);
-
-	/*
+   /*
 	 * output: destructor
 	 */
 	~Pawn();
 	/*
 	 * output: all the possible moves the piece can do while still being a legal move
-	 * return: 2D array of all the possible moves.
+	 * return: 2D vector of all the possible moves.
 	 * note: the pawn can move diagnonally when capturing, and can en pessant. Logic for checking if the move is legal should be defined in the board class.
 	 * note: pawn cannot move if there is a piece right ahead of it.
 	 */
+  std::vector<std::vector<int>> getPossibleMoves() const;
 
-	int** getPossibleMoves() const;
 
 	/*
 	 * param: the piece the player wishes to promote to.
