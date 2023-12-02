@@ -1,5 +1,5 @@
 #include<stdio>
-#include<stdlib>
+#include<cstdlib>
 #include<string>
 #include<regex>
 #ifndef PIECES_H
@@ -29,7 +29,7 @@ class Pieces {
 		 * param: color
 		 * output: changes the color to specified color
 		 */
-		void setColor(std::string color);
+		void setColor(std::string& color);
 
 		/*
 		 * return: the position of the piece on the board
@@ -40,7 +40,7 @@ class Pieces {
 		 * param: position to be set to
 		 * output: sets the position to that position if it's a valid move
 		 */
-		void setPosition(int[2] position);
+		void setPosition(const int[2] position);
 		
 		/*
 		 * output: if piece is alive or not
@@ -53,12 +53,26 @@ class Pieces {
 		 * param: status to set the piece
 		 * output: sets the status to status specified in parameter
 		 */
-		void setStatus(bool alive);
+		void setStatus(const bool alive);
+
+
+		/*
+		 * param: name of the piece
+		 * output: sets the name to parameter
+		 */
+		void setName(const std::string& name);
+
+
+		/*
+		 * return: name of piece
+		 */
+		std::string getName() const;
 
 	private:
 		int[2] position_;
 		std::string color_:
 		bool alive_;
+		std::string name_;
 }
 
 #endif
