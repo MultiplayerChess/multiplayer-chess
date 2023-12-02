@@ -18,7 +18,7 @@ int* Pieces::getPosition() const {
 	return position_;
 }
 
-void Pieces::setPosition(int* position) {
+void Pieces::setPosition(const int* position[2]) {
 	position_[0] = position[0];
 	position_[1] = position[1];
 }

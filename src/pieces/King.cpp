@@ -17,23 +17,31 @@ std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPi
   for(int i = -1; i < 2; i++) {
     for(int j = -1; j < 2; j++) {
       if(i == 0 && j == 0) {
-        continue
+        continue;
       }
       int* position = new int[2];
       position[0] = currentPos[0]+i;
       position[1] = currentPos[1]+j;
+<<<<<<< HEAD
+=======
+      if(!(position[0] >= 0 && position[0] < 8 && position[1] >= 0 && position[1] < 8)) { continue;} 
+>>>>>>> b68ae93a1d388cb60cdf998477878589d152709e
       // ANOTHER FOR LOOP
       bool tof = false;
       for(int k = 0; k < ownPieces.size(); k++) {
         int* ownPiecePos = new int[2];
         ownPiecePos = ownPieces[k].getPosition();
-        if(!(posit  ion[0] == ownPiecePos[0] && position[1] == ownPiecePos[1])) {
-          free(ownPiecePos);
+<<<<<<< HEAD
+        if(!(position[0] == ownPiecePos[0] && position[1] == ownPiecePos[1])) {
+=======
+        if(!(position[0] == ownPiecePos[0] && position[1] == ownPiecePos[1])) {
+>>>>>>> b68ae93a1d388cb60cdf998477878589d152709e
+          delete[] ownPiecePos;
           continue;
         } else {
           tof = true;
         }
-        free(ownPiecePos);
+        delete[] ownPiecePos;
       }
       if(!tof) {
         setPosition(position);
@@ -43,10 +51,10 @@ std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPi
         }
         setPosition(currentPos);
       }
-    free(position);
+    delete[] position;
     }
   }
-  free(currentPos);
+  delete[] currentPos;
   return possibleMoves;
 }
 bool isInCheck(std::vector<Pieces> enemyPieces, std::vector<Pieces> ownPieces) {
@@ -63,11 +71,11 @@ bool isInCheck(std::vector<Pieces> enemyPieces, std::vector<Pieces> ownPieces) {
       // not sure how the logic would work either
       // "By default, use vector when you need a container" - Bjarne Stroustrup.
       if(currentPos[0] == possibleMoves[j][0] && currentPos[1] == possibleMoves[j][1]) {
-        free(currentPos);
+        delete[] currentPos;
         return true;
       }
     }
   }
-  free(currentPos);
+  delete[] currentPos;
   return false;
 }
