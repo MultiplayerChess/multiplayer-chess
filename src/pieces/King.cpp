@@ -28,7 +28,7 @@ std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPi
       for(int k = 0; k < ownPieces.size(); k++) {
         int* ownPiecePos = new int[2];
         ownPiecePos = ownPieces[k].getPosition();
-        if(!(posit  ion[0] == ownPiecePos[0] && position[1] == ownPiecePos[1])) {
+        if(!(position[0] == ownPiecePos[0] && position[1] == ownPiecePos[1])) {
           free(ownPiecePos);
           continue;
         } else {
