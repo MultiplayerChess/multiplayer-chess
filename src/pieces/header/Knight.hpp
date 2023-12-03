@@ -1,3 +1,4 @@
+#include "Pieces.hpp"
 #ifndef KNIGHT_HPP
 #define KNIGHT_HPP
 
