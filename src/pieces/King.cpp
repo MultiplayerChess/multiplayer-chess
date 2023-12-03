@@ -50,25 +50,53 @@ std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPi
   }
   return possibleMoves;
 }
-bool isInCheck(std::vector<Pieces> enemyPieces, std::vector<Pieces> ownPieces) {
+bool isInCheck(std::vector<Pieces> enemyPieces, std::vector<Pieces> ownPieces, King enemyKing) {
   int* currentPos = getPosition();
   for(int i = 0; i < enemyPieces.size(); i++) {
     std::vector<std::vector<int>> possibleMoves = enemyPieces[i].getPossibleMoves();
 
     for(int j = 0; j < possibleMoves.size(); j++) {
-      // I know what you're thinking
-      // nested loop?
-      // Yes. In cases like this with limited iteration (27 moves maximum per piece, so upper bound is in hundreds)
-      // using a vector would be faster than using something
-      // like a hashmap
-      // not sure how the logic would work either
-      // "By default, use vector when you need a container" - Bjarne Stroustrup.
       if(currentPos[0] == possibleMoves[j][0] && currentPos[1] == possibleMoves[j][1]) {
         delete[] currentPos;
         return true;
       }
     }
   }
+
+  // temp lines
+  // uses distance formula to find the distance between kings
+  int* enemyKingPosition = enemyKing.getPosition();
+  bool kingsWillTouch = sqrt(pow(currentPos[0] - enemyKing[0],2) + pow(currentPos[1] - enemyKing[1],2)) > 3;
+
+  if(kingsWillTouch) {
+    std::vector<std::vector<int>> kingNoGoZone;
+    // find the average distance between the X and Y axis
+    double averageX = (double)(currentPos[0] + enemyKingPosition[0])/2;
+    double averageY = (double)(currentPos[1] + enemyKingPosition[1])/2;
+    if(averageX == currentPos[0] || averageY == currentPos[1]) {
+
+      for(int i = -1; i < 2; i++) {
+        kingNoGoZone.push_back(std::vector<int>{currentPos[0]+i, currentPos[i]});
+        kingNoGoZone.push_back(std::vector<int>{currentPos[0], currentPos[i]+i});
+      }
+
+    } else if(averageX - (int)averageX == 0.5) {
+    
+      kingNoGoZone.push_back(std::vector<int>{averageX, averageY});
+      kingNoGoZone.push_back(std::vector<int>{(int)(averageX + 0.5), averageY});
+    
+    } else if(averageY - (int)averageY == 0.5) {
+      
+      kingNoGoZone.push_back(std::vector<int>{averageX, averageY});
+      kingNoGoZone.push_back(std::vector<int>{averageX, (int)(averageY+0.5)});
+    
+    } else if(averageX != currentPos[0] && averageY != currentPos[1]) {
+
+      
+
+    }
+  }
+
   delete[] currentPos;
   return false;
 }
