@@ -38,7 +38,7 @@ std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPi
       }
       if(!tof) {
         setPosition(position);
-        if(!isInCheck()) {
+       if(!isInCheck()) {
           std::vector<int> temp{position[0], position[1]};
           possibleMoves.push_back(temp);
         }
