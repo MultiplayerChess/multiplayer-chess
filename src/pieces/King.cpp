@@ -6,7 +6,7 @@ King::King(int* position, std::string color) {
   setName("King");
 }
 
-std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPieces, std::vector<Pieces> ownPieces) const {
+std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPieces, std::vector<Pieces> ownPieces, King enemyKing) const {
   // to be implemented
   int* currentPos = getPosition();
   
@@ -14,6 +14,7 @@ std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPi
   std::vector<std::vector<int>> possibleMoves;
   // I will hard code the logic to check if the king will be in bound because that's easier
   // this has all the possible combinations. Will have to weed down.
+
   for(int i = -1; i < 2; i++) {
     for(int j = -1; j < 2; j++) {
       if(i == 0 && j == 0) {
@@ -22,7 +23,6 @@ std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPi
       int* position = new int[2];
       position[0] = currentPos[0]+i;
       position[1] = currentPos[1]+j;
-      
       if(!(position[0] >= 0 && position[0] < 8 && position[1] >= 0 && position[1] < 8)) { continue;} 
       // ANOTHER FOR LOOP
       bool tof = false;
@@ -48,7 +48,6 @@ std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPi
     delete[] position;
     }
   }
-  delete[] currentPos;
   return possibleMoves;
 }
 bool isInCheck(std::vector<Pieces> enemyPieces, std::vector<Pieces> ownPieces) {

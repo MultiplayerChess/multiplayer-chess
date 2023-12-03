@@ -1,4 +1,5 @@
 #include<stdio>
+#include<cmath>
 #include<cstdlib>
 #include<string>
 #include<regex>
