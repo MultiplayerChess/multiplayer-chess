@@ -22,6 +22,7 @@ std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPi
       int* position = new int[2];
       position[0] = currentPos[0]+i;
       position[1] = currentPos[1]+j;
+      
       if(!(position[0] >= 0 && position[0] < 8 && position[1] >= 0 && position[1] < 8)) { continue;} 
       // ANOTHER FOR LOOP
       bool tof = false;
