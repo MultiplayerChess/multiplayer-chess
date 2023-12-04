@@ -96,7 +96,7 @@ std::vector<std::vector<int>> King::getPossibleMoves(std::vector<Pieces> enemyPi
 
 
 
-bool isInCheck(std::vector<Pieces> enemyPieces, std::vector<Pieces> ownPieces) {
+bool King::isInCheck(std::vector<Pieces> enemyPieces, std::vector<Pieces> ownPieces) {
   std::vector<int> currentPos = getPosition();
   for(int i = 0; i < enemyPieces.size(); i++) {
     std::vector<std::vector<int>> possibleMoves = enemyPieces[i].getPossibleMoves();
