@@ -9,7 +9,7 @@ class Queen: public Pieces {
 		 * param: position to be set to and color
 		 * output: creates a queen at position and specified color.
 		 */
-		Queen(int* position, std::string color);
+		Queen(std::vector<int> position, std::string color);
 
 
 		/*

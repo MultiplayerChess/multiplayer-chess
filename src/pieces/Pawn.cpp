@@ -1,6 +1,6 @@
 #include "Pawn.hpp"
 
-Pawn::Pawn(int* position, std::string color) {
+Pawn::Pawn(std::vector<int> position, std::string color) {
   setPosition(position);
   setColor(color);
   setName("Pawn");

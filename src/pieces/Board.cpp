@@ -10,8 +10,8 @@ Board::Board() {
 Board::~Board()	{
 	delete[] board_**;
 }
-
-static bool Board::isValidMove(int* currentPos, int* newPos, std::vector<Pieces> ownPieces, std::vector<Pieces> enemyPieces) {
+/*
+static bool Board::isValidMove(std::vector<int> currentPos, std::vector<int> newPos, std::vector<Pieces> ownPieces, std::vector<Pieces> enemyPieces, King ownKing) {
 	std::vector<std::vector<int>> occupied = getOccupiedSquares(std::vector<Pieces> ownPieces);
 	
 	bool tof = true;
@@ -37,4 +37,5 @@ static bool Board::isValidMove(int* currentPos, int* newPos, std::vector<Pieces>
 	}
   return tof;
 
-}
+}*/
+// I don't think this class is necessary.
