@@ -3,6 +3,8 @@
 #include<cstdlib>
 #include<string>
 #include<regex>
+#include<unordered_map>
+#include<vector>
 #ifndef PIECES_H
 #define PIECES_H
 

@@ -20,72 +20,29 @@ std::vector<std::vector<int>> Queen::getPossibleMoves(std::vector<Pieces> ownPie
   enum Direction {
     N,S,E,W,NE,NW,SE,SW
   };
+  std::unordered_map<Direction, std::vector<int>> directionOffset = {
+    {N:{0,1}},
+    {S:{0,-1}},
+    {E:{-1,0}},
+    {W:{1,0}},
+    {NE:{-1,1}},
+    {NW:{1,1}},
+    {SE:{-1,-1}},
+    {SW:{1,-1}}
+  };
   for(int iter = N; iter <= SW; iter++) {
     Direction dir = (Direction)(iter);
     for(int i = 1; i < 8; i++) {
       //pushAtEnd is a vector that keeps track of the latest change
       std::vector<int> pushAtEnd;
-      std::vector<int> tempCurrentPos = currentPos;
-      bool outOfBound = false;
-      switch(dir) {
-        case N:
-          if(i+currentPos[1] == 8) {
-            outOfBound = true;
-          } else {
-            tempCurrentPos = std::vector<int>{currentPos[0], i+currentPos[1]};
-          }
-          break;
-        case S:
-          if(-i+currentPos[1] < 0) {
-            outOfBound = true;
-          } else {
-            tempCurrentPos = std::vector<int>{currentPos[0], -i+currentPos[1]};
-          }
-          break;
-        case E:
-          if(-i+currentPos[0] < 0) {
-            outOfBound = true;
-          } else {
-            tempCurrentPos = std::vector<int>{-i+currentPos[0], currentPos[1]};
-          }
-          break;
-        case W:
-          if(i+currentPos[0] == 8) {
-            outOfBound = true;
-          } else {
-            tempCurrentPos = std::vector<int>{i+currentPos[0], currentPos[1]};
-          }
-          break;
-        case NE:
-          if(i+currentPos[1] == 8 || -i+currentPos[0] < 0) {
-            outOfBound = true;
-          } else {
-            tempCurrentPos = std::vector{-i+currentPos[0], i+currentPos[1]};
-          }
-          break;
-        case NW:
-          if(i+currentPos[1] == 8 || i+currentPos[0] == 8) {
-            outOfBound = true;
-          } else {
-            tempCurrentPos = std::vector{i+currentPos[0], i+currentPos[1]};
-          }
-          break;
-        case SE:
-          if(-i+currentPos[1] < 0 || -i+currentPos[0] < 0) {
-            outOfBound = true;
-          } else {
-            tempCurrentPos = std::vector{-i+currentPos[0], -i+currentPos[1]};
-          }
-          break;
-        case SW:
-          if(-i+currentPos[1] < 0 || i+currentPos[0] == 8) {
-            outOfBound = true;
-          } else {
-            tempCurrentPos = std::vector{i+currentPos[0], -i+currentPos[1]};
-          }
-          break;
+      std::vector<int> tempCurrentPos{
+        currentPos[0]+directionOffset[iter][0]*i,
+        currentPos[1]+directionOffset[iter][1]*i
+      };
+
+      if(tempCurrentPos[0] == 8 || tempCurrentPos[0] < 0 || tempCurrentPos[1] == 8 ||  < 0) {
+        break;
       }
-      if(outOfBound) {break;}
 
       bool onOwnPiece = false;
       for(int j = 0; j < ownPieces.size(); j++) {
