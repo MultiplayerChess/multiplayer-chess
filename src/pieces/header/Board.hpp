@@ -35,7 +35,7 @@ class Board {
     // unneeded for now. Might remove in future.
 		std::vector<std::vector<int>> getOccupiedSquares(std::vector<Pieces> alivePieces);
 	private:
-    std::vector<std::vector<int>> board_;
+    std::vector<std::vector<Pieces>> board_;
 }
 
 
