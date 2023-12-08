@@ -33,7 +33,7 @@ class Board {
 		 * return: list of all occupied squares. (color ambiguous)
 		 */
     // unneeded for now. Might remove in future.
-		std::vector<std::vector<int>> getOccupiedSquares(std::vector<Pieces> alivePieces);
+		std::vector<std::vector<int>> getOccupiedSquares();
 	private:
     std::vector<std::vector<Pieces>> board_;
 }

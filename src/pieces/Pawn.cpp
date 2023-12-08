@@ -30,9 +30,9 @@ std::vector<std::vector<int>> getPossibleMoves(std::vector<Pieces> enemyPieces, 
       int* ownPosition[2] = getPosition();
         // checks if there is an ememy straight ahead of the pawn
       bool enemyInFront = false;
-      if(enemyPosition[0] == ownPosition[0]+moveDirection && enemyPosition[1] == ownPosition[1]) {
+      if(enemyPosition[1] == ownPosition[1]+moveDirection && enemyPosition[0] == ownPosition[0]) {
         enemyInFront = true;
-      } else if(enemyPosition[0] == ownPosition[0]+moveDirection && enemyPosition[1] == ownPosition[1]+i) {
+      } else if(enemyPosition[1] == ownPosition[1]+moveDirection && enemyPosition[0] == ownPosition[0]+i) {
 
 
 

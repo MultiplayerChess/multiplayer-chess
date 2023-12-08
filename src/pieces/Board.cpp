@@ -23,7 +23,7 @@ Board::Board() {
   board_[7][7] = new Rook(std::vector<int>{7,7}, "Black");
 
 }
-
+/*
 static bool Board::isValidMove(std::vector<int> currentPos, std::vector<int> newPos, std::vector<Pieces> ownPieces, std::vector<Pieces> enemyPieces) {
 	std::vector<std::vector<int>> occupied = getOccupiedSquares(std::vector<Pieces> ownPieces);
 	
@@ -49,5 +49,10 @@ static bool Board::isValidMove(std::vector<int> currentPos, std::vector<int> new
 		} 
 	}
   return tof;
+}
+*/
+// that is not required I think
 
+std::vector<std::vector<Pieces>> getOccupiedSquares() {
+  return board_;
 }

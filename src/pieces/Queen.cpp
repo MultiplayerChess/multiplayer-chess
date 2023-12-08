@@ -9,10 +9,11 @@ Queen::Queen(std::vector<int> position, std::string color) {
 
 
 
-std::vector<std::vector<int>> Queen::getPossibleMoves(std::vector<Pieces> ownPieces, std::vector<Pieces> enemyPieces) {
+std::vector<std::vector<int>> Queen::getPossibleMoves(Board board) {
 
   std::vector<std::vector<int>> possibleMoves;
   std::vector<int> currentPos = getPosition();
+  std::vector<std::vector<Pieces>> board = board.getOccupiedSquares();
   // goes upward
   //
   // time to set directon
@@ -39,35 +40,23 @@ std::vector<std::vector<int>> Queen::getPossibleMoves(std::vector<Pieces> ownPie
         currentPos[0]+directionOffset[iter][0]*i,
         currentPos[1]+directionOffset[iter][1]*i
       };
-
       if(tempCurrentPos[0] == 8 || tempCurrentPos[0] < 0 || tempCurrentPos[1] == 8 ||  < 0) {
+
         break;
       }
 
-      bool onOwnPiece = false;
-      for(int j = 0; j < ownPieces.size(); j++) {
-        std::vector<int> temp = ownPieces[j].getPosition();
-        if(tempCurrentPos[1] == temp[1] && tempCurrentPos[0] == temp[0]) {
-          onOwnPiece = true;
-          break;
+      if(board[tempCurrentPos[0]][tempCurrentPos[1]] != null && board[tempCurrentPos[0]][tempCurrentPos[1]].getColor().compare(getColor()) == 0) {
+        break;
       }
-      if(onOwnPiece) {break;}
 
-      bool onEnemyPiece = false;
-      for(int i = 0; i < enemyPieces.size(); i++) {
-
-        std::vector<int> temp = enemyPieces[i].getPosition();
-        if(tempCurrentPos[1] == temp[1] && tempCurrentPos[0] == temp[0]) {
-          pushAtEnd = tempCurrentPos;
-          onEnemyPiece = true;
-          break;
-        }
+      std::vector<int> temp = enemyPieces[i].getPosition();
+      if(board[tempCurrentPos[0]][tempCurrentPos[1]] != null && board[tempCurrentPos[0]][tempCurrentPos[1]].getColor().compare(getColor()) != 0) {
+        pushAtEnd = tempCurrentPos;
+        break;
       }
-      possibleMoves.push_back(pushAtEnd);
-      if(onEnemyPiece) {break;}
-    
     }
-
+    possibleMoves.push_back(pushAtEnd);
+    
   }
   return possibleMoves;
 }

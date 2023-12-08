@@ -18,7 +18,7 @@ class Queen: public Pieces {
 		 * note: queen can move horizontal, vertical, and diagonal.
 		 */
 
-    std::vector<std::vector<int>> getPossibleMoves(std::vector<Pieces> ownPieces, std::vector<Pieces> enemyPieces) const;
+    std::vector<std::vector<int>> getPossibleMoves(Board board) const;
 }
 
 #endif
