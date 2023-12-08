@@ -1,17 +1,30 @@
 #include "header/Board.hpp"
 
 Board::Board() {
-	int board_** = new int*[8];
-	for(int i = 0; i < 8; i++) {
-		board_[i] = new int[8]
-	}
-}
+  board_[0][0] = new Rook(std::vector<int>{0,0}, "White");
+  board_[1][0] = new Knight(std::vector<int>{1,0}, "White");
+  board_[2][0] = new Bishop(std::vector<int>{2,0}, "White");
+  board_[3][0] = new Queen(std::vector<int>{3,0}, "White");
+  board_[4][0] = new King(std::vector<int>{4,0}, "White");
+  board_[5][0] = new Bishop(std::vector<int>{5,0}, "White");
+  board_[6][0] = new Knight(std::vector<int>{6,0}, "White");
+  board_[7][0] = new Rook(std::vector<int>{7,0}, "White");
+  for(int i = 0; i < 8; i++) {
+    board_[i][1] = new Pawn(std::vector<int>{i,1}, "White");
+    board_[i][6] = new Pawn(std::vector<int>{i,6}, "Black");
+  }
+  board_[0][7] = new Rook(std::vector<int>{0,7}, "Black");
+  board_[1][7] = new Knight(std::vector<int>{1,7}, "Black");
+  board_[2][7] = new Bishop(std::vector<int>{2,7}, "Black");
+  board_[3][7] = new Queen(std::vector<int>{3,7}, "Black");
+  board_[4][7] = new King(std::vector<int>{4,7}, "Black");
+  board_[5][7] = new Bishop(std::vector<int>{5,7}, "Black");
+  board_[6][7] = new Knight(std::vector<int>{6,7}, "Black");
+  board_[7][7] = new Rook(std::vector<int>{7,7}, "Black");
 
-Board::~Board()	{
-	delete[] board_**;
 }
-
-static bool Board::isValidMove(int* currentPos, int* newPos, std::vector<Pieces> ownPieces, std::vector<Pieces> enemyPieces) {
+/*
+static bool Board::isValidMove(std::vector<int> currentPos, std::vector<int> newPos, std::vector<Pieces> ownPieces, std::vector<Pieces> enemyPieces) {
 	std::vector<std::vector<int>> occupied = getOccupiedSquares(std::vector<Pieces> ownPieces);
 	
 	bool tof = true;
@@ -36,5 +49,10 @@ static bool Board::isValidMove(int* currentPos, int* newPos, std::vector<Pieces>
 		} 
 	}
   return tof;
+}
+*/
+// that is not required I think
 
+std::vector<std::vector<Pieces>> getOccupiedSquares() {
+  return board_;
 }

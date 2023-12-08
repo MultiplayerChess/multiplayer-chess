@@ -9,7 +9,7 @@ class Queen: public Pieces {
 		 * param: position to be set to and color
 		 * output: creates a queen at position and specified color.
 		 */
-		Queen(int* position, std::string color);
+		Queen(std::vector<int> position, std::string color);
 
 
 		/*
@@ -18,7 +18,7 @@ class Queen: public Pieces {
 		 * note: queen can move horizontal, vertical, and diagonal.
 		 */
 
-    std::vector<std::vector<int>> getPossibleMoves() const;
+    std::vector<std::vector<int>> getPossibleMoves(Board board) const;
 }
 
 #endif

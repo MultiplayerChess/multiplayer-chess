@@ -9,7 +9,7 @@ class Rook: public Pieces {
 	 * param: starting position, color (black/white)
 	 * output: sets the position to specified position
 	 */
-	Rook(int* position, std::string color);
+	Rook(std::vector<int> position, std::string& color);
 
 	/*
 	 * output: destructor

@@ -10,7 +10,7 @@ class Pawn: public Pieces{
 	 * output: creates constructor for pawn
 	 */
 
-	Pawn(int* position, std::string color);
+	Pawn(std::vector<int> position, std::string color);
    /*
 	 * output: destructor
 	 */

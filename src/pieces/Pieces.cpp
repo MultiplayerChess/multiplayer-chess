@@ -6,19 +6,15 @@ std::string Pieces::getColor() const {
 	return color_;
 }
 
-Pieces::~Pieces() {
-	delete[] position_;
-}
-
 void Pieces::setColor(std::string color) {
 	color_ = color;
 }
 
-int* Pieces::getPosition() const {
+std::vector<int> Pieces::getPosition() const {
 	return position_;
 }
 
-void Pieces::setPosition(const int* position[2]) {
+void Pieces::setPosition(const std::vector<int> position) {
 	position_[0] = position[0];
 	position_[1] = position[1];
 }

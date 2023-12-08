@@ -1,7 +1,10 @@
 #include<stdio>
+#include<cmath>
 #include<cstdlib>
 #include<string>
 #include<regex>
+#include<unordered_map>
+#include<vector>
 #ifndef PIECES_H
 #define PIECES_H
 
@@ -34,13 +37,13 @@ class Pieces {
 		/*
 		 * return: the position of the piece on the board
 		 */
-		int* getPosition() const;
+    std::vector<int> getPosition() const;
 		
 		/*
 		 * param: position to be set to
 		 * output: sets the position to that position if it's a valid move
 		 */
-		void setPosition(const int* position[2]);
+		void setPosition(const std::vector<int> position);
 		
 		/*
 		 * output: if piece is alive or not
@@ -69,7 +72,7 @@ class Pieces {
 		std::string getName() const;
 
 	private:
-		int* position_ = new int[2];
+    std::vector<int> position_(2);
 		std::string color_:
 		bool alive_;
 		std::string name_;
