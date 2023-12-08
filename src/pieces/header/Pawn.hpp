@@ -31,5 +31,17 @@ class Pawn: public Pieces{
 	 * note: you have to force the user to choose, or else the game cannot continue
 	 */
 	void promotion(std::string piece);
+  
+  int getMoveCount();
+
+  void setMoveTime();
+
+  void incrementMoveCount();
+
+  int getMoveTime();
+
+  private:
+  int moveCount_ = 0;
+  int moveTime_;
 }
 #endif
