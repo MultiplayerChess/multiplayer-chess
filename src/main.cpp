@@ -1,5 +1,5 @@
-#include<stdio>
-#include<stdlib>
+#include<cstdio>
+#include<cstdlib>
 #include<regex>
 #include<iostream>
 #include<string>
