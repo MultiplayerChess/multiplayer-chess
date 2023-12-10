@@ -53,6 +53,18 @@ static bool Board::isValidMove(std::vector<int> currentPos, std::vector<int> new
 */
 // that is not required I think
 
-std::vector<std::vector<Pieces>> getOccupiedSquares() {
+std::vector<std::vector<Pieces>> Board::getOccupiedSquares() {
   return board_;
 }
+
+
+
+int Board::getTotalMoves() {
+  return totalMoves_;
+} 
+
+
+void Board::incrementTotalMoves() {
+  totalMoves_++;
+}
+
