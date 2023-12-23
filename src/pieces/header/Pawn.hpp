@@ -10,7 +10,7 @@ class Pawn: public Pieces{
 	 * output: creates constructor for pawn
 	 */
 
-	Pawn(std::vector<int> position, std::string color);
+	Pawn(std::vector<int> position, std::string& color);
    /*
 	 * output: destructor
 	 */
@@ -30,15 +30,15 @@ class Pawn: public Pieces{
 	 * output: replaces the pawn with the desired promoted piece.
 	 * note: you have to force the user to choose, or else the game cannot continue
 	 */
-	void promotion(std::string piece);
+	void promotion(std::string& piece);
   
-  int getMoveCount();
+  int getMoveCount() const;
 
-  void setMoveTime();
+  void setMoveTime(int moveTime);
 
   void incrementMoveCount();
 
-  int getMoveTime();
+  int getMoveTime() const;
 
   private:
   int moveCount_ = 0;

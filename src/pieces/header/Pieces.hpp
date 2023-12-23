@@ -51,13 +51,23 @@ class Pieces {
 		 */
 		bool getStatus() const;
 		
-		
+    /*
+     * param: vector of all possible moves and where the player wants to move it
+     * output: move the piece if the move is in the vector of moves
+     */
+    bool move(std::vector<std::vector<int>> possibleMoves, std::vector<int> desiredMove);
+
 		/*
 		 * param: status to set the piece
 		 * output: sets the status to status specified in parameter
 		 */
 		void setStatus(const bool alive);
 
+
+    /*
+     * param: moves
+     *
+     */
 
 		/*
 		 * param: name of the piece

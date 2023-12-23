@@ -19,6 +19,15 @@ void Pieces::setPosition(const std::vector<int> position) {
 	position_[1] = position[1];
 }
 
+bool Pieces::move(std::vector<std::vector<int>> possibleMoves, std::vector<int> desiredMove) {
+  for(std::vector<int> i : possibleMoves) {
+    if(i[0] == desiredMove[0] && i[1] = desiredMove[1])
+      return false;
+  }
+  setPosition(desiredMove);
+  return true;
+}
+
 bool Pieces::getStatus() const {
 	return alive_;
 }

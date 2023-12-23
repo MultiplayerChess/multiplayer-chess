@@ -40,10 +40,22 @@ std::vector<std::vector<int>> getPossibleMoves(Board boards) const {
 }
 
 
-int Pawn::getMoveCount() {
+int Pawn::getMoveCount() const {
   return board_;
 }
 
+void Pawn::setMoveTime(int moveTime) {
+  moveTime_ = moveTime;
+}
+
 void Pawn::incrementMoveCount() {
+   moveCount_++;
+}
+
+int Pawn::getMoveTime() const {
+  return moveTime_;
+}
+
+void Pawn::promotion(std::string& piece) {
   
 }
