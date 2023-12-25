@@ -27,7 +27,9 @@ class Board {
 		 */
 		// static bool isValidMove(std::vector<int> currentPos, std::vector<int> newPos, std::vector<Pieces> ownPieces, std::vector<Pieces> enemyPieces, King ownKing);
 
-    
+    // deep copy
+    Board(const Board& other); 
+    Board& Board::operator=(const Board& other);
 		/*
 		 * param: list of all the pieces specified in vector
 		 * return: list of all occupied squares. (color ambiguous)
@@ -35,6 +37,15 @@ class Board {
     // unneeded for now. Might remove in future.
 		std::vector<std::vector<int>> getOccupiedSquares();
 
+    /*
+     *
+     */
+
+    /*
+     * param: the piece that is replacing, the piece to be replaced.
+     * output: deletes the piece to be replaced.
+     */
+    void replace(Pieces* piece1, Pieces* piece2);
     /*
      * return: how many moves that has been done
      */
@@ -47,7 +58,7 @@ class Board {
 
 
 	private:
-    std::vector<std::vector<Pieces>(8)>(8) board_;
+    std::vector<std::vector<Pieces*>(8)>(8,nullptr) board_();
     int totalMoves_ = 0;
 }
 

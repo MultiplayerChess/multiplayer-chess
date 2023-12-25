@@ -23,46 +23,54 @@ Board::Board() {
   board_[7][7] = new Rook(std::vector<int>{7,7}, "Black");
 
 }
-/*
-static bool Board::isValidMove(std::vector<int> currentPos, std::vector<int> newPos, std::vector<Pieces> ownPieces, std::vector<Pieces> enemyPieces) {
-	std::vector<std::vector<int>> occupied = getOccupiedSquares(std::vector<Pieces> ownPieces);
-	
-	bool tof = true;
-	
-	// gets size of the returned 2D vector. pieces should be the same color as the pieces.
-	for(int i = 0; i < occupied.size(); i++) {
-		tof = !(occupied[i][0] == newPos[0] && occupied[i][1] == newPos[1]);
-	}
-	
-	// returns false if the new position is occupied.
-	if(!tof) {
-		return tof;
-	}
-
-	// to implement checking if will be in check.
-	
-	for(int i = 0; i < ownPieces.size(); i++) {
-		if(ownPieces[i].getName().compare("King") == 0) {
-		  tof = !ownPieces[i].isInCheck(enemyPieces, ownPieces);
-      // this is in a not statement because isInCheck returns true if it is in check.
-      // If it is in check, we want to return false <3
-		} 
-	}
-  return tof;
+// Copy constructor for Board class (deep copy)
+Board::Board(const Board& other) : totalMoves_(other.totalMoves_) {
+  for (int row = 0; row < 8; ++row) {
+    for (int col = 0; col < 8; ++col) {
+      if (other.board_[row][col]) {
+        board_[row][col] = other.board_[row][col]->clone(); // Assuming clone() method exists in Pieces class
+      } else {
+       board_[row][col] = nullptr;
+      }
+    }
+  }
 }
-*/
-// that is not required I think
 
-std::vector<std::vector<Pieces>> Board::getOccupiedSquares() {
+// Assignment operator for Board class (deep copy)
+Board& Board::operator=(const Board& other) {
+  if (this != &other) { // Check for self-assignment
+    totalMoves_ = other.totalMoves_;
+
+    // Clear current board (release old resources)
+    for (int row = 0; row < 8; ++row) {
+      for (int col = 0; col < 8; ++col) {
+        delete board_[row][col];
+        if (other.board_[row][col]) {
+          board_[row][col] = other.board_[row][col]->clone(); // Assuming clone() method exists in Pieces class
+        } else {
+          board_[row][col] = nullptr;
+        }
+      }
+    }
+  }
+  return *this;
+}
+std::vector<std::vector<Pieces*>> Board::getOccupiedSquares() {
   return board_;
 }
 
+void Board::replace(Pieces* piece1, Pieces* piece2) {
 
-
+  std::vector<int> loc1 = piece1.getPosition();
+  std::vector<int> loc2 = piece2.getPosition();
+  delete board_[loc2[0]][loc2[1]];
+  board_[loc2[0]][loc2[1]] = piece1;
+  delete board_[loc1[0]][loc1[1]];
+  board_[loc1[0]][loc1[1]] = nullptr;
+}
 int Board::getTotalMoves() {
   return totalMoves_;
 } 
-
 
 void Board::incrementTotalMoves() {
   totalMoves_++;

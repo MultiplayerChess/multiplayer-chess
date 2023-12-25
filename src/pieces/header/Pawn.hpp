@@ -15,7 +15,11 @@ class Pawn: public Pieces{
 	 * output: destructor
 	 */
 	~Pawn();
-	/*
+	
+  // copy constructor
+  Pawn(const Pawn& other);
+
+  /*
 	 * output: all the possible moves the piece can do while still being a legal move
 	 * return: 2D vector of all the possible moves.
 	 * note: the pawn can move diagnonally when capturing, and can en pessant. Logic for checking if the move is legal should be defined in the board class.
