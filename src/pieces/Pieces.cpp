@@ -29,7 +29,7 @@ void Pieces::setPosition(const std::vector<int> position) {
 
 bool Pieces::move(Board board, std::vector<std::vector<int>> possibleMoves, std::vector<int> desiredMove) {
   for(std::vector<int> i : possibleMoves) {
-    if(i[0] == desiredMove[0] && i[1] = desiredMove[1])
+    if(i[0] == desiredMove[0] && i[1] == desiredMove[1])
       return false;
   }
   if()
@@ -49,6 +49,6 @@ void Pieces::setName(const std::string& name) {
   name_ = name;
 }
 
-std::string getName() const {
+std::string Pieces::getName() const {
   return name_
 }

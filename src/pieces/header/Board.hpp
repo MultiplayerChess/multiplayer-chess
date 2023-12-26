@@ -45,7 +45,7 @@ class Board {
      * param: the piece that is replacing, the piece to be replaced.
      * output: deletes the piece to be replaced.
      */
-    void replace(Pieces* piece1, Pieces* piece2);
+    void replace(std::vector<int> pos1, std::vector<int> pos2);
     /*
      * return: how many moves that has been done
      */

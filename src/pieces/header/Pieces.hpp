@@ -30,7 +30,8 @@ class Pieces {
 		 * return: color of piece
 		 */
 		std::string getColor() const;
-
+    
+    virtual Pieces* clone() const = 0;
 		/*
 		 * param: color
 		 * output: changes the color to specified color

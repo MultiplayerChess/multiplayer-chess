@@ -11,6 +11,11 @@ class Rook: public Pieces {
 	 */
 	Rook(std::vector<int> position, std::string& color);
 
+
+  Pieces* clone() const override {
+    return new Rook(*this);
+  }
+
 	/*
 	 * output: destructor
 	 */

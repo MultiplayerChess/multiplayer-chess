@@ -27,6 +27,9 @@ class Pawn: public Pieces{
 	 */
   std::vector<std::vector<int>> getPossibleMoves() const;
 
+  Pieces* clone() const override {
+    return new Pawn(*this);
+  }
 
 	/*
 	 * param: the piece the player wishes to promote to.

@@ -11,6 +11,10 @@ class King: public Pieces{
 	 */
 	King(std::vector<int> position, std::string color);
 
+  // clone dw about this
+  Pieces* clone() const override {
+    return new King(*this);
+  }
 	/*
 	 * return: 2D vector of all moves that's legal
 	 */

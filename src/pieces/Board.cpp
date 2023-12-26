@@ -28,7 +28,7 @@ Board::Board(const Board& other) : totalMoves_(other.totalMoves_) {
   for (int row = 0; row < 8; ++row) {
     for (int col = 0; col < 8; ++col) {
       if (other.board_[row][col]) {
-        board_[row][col] = other.board_[row][col]->clone(); // Assuming clone() method exists in Pieces class
+        board_[row][col] = other.board_[row][col]->clone();
       } else {
        board_[row][col] = nullptr;
       }
@@ -42,11 +42,11 @@ Board& Board::operator=(const Board& other) {
     totalMoves_ = other.totalMoves_;
 
     // Clear current board (release old resources)
-    for (int row = 0; row < 8; ++row) {
-      for (int col = 0; col < 8; ++col) {
+    for (int row = 0; row < 8; row++) {
+      for (int col = 0; col < 8; col++) {
         delete board_[row][col];
         if (other.board_[row][col]) {
-          board_[row][col] = other.board_[row][col]->clone(); // Assuming clone() method exists in Pieces class
+          board_[row][col] = other.board_[row][col]->clone();
         } else {
           board_[row][col] = nullptr;
         }
@@ -59,14 +59,12 @@ std::vector<std::vector<Pieces*>> Board::getOccupiedSquares() {
   return board_;
 }
 
-void Board::replace(Pieces* piece1, Pieces* piece2) {
-
-  std::vector<int> loc1 = piece1.getPosition();
-  std::vector<int> loc2 = piece2.getPosition();
-  delete board_[loc2[0]][loc2[1]];
-  board_[loc2[0]][loc2[1]] = piece1;
-  delete board_[loc1[0]][loc1[1]];
-  board_[loc1[0]][loc1[1]] = nullptr;
+void Board::replace(std::vector<int> pos1, std::vector<int> pos2) {
+  if(board_[pos2[0]][pos2[1]])
+    delete board_[pos2[0]][pos2[1]];
+  board_[pos2[0]][pos2[1]] = board_[pos1[0]][pos1[1]]->clone();
+  delete board_[pos1[0]][pos1[1]];
+  board_[pos1[0]][pos1[1]] = nullptr;
 }
 int Board::getTotalMoves() {
   return totalMoves_;

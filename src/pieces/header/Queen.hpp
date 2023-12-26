@@ -11,6 +11,9 @@ class Queen: public Pieces {
 		 */
 		Queen(std::vector<int> position, std::string color);
 
+    Pieces* clone() const override {
+      return new Queen(*this);
+    }
 
 		/*
 		 * output: all the possible moves that the piece can do

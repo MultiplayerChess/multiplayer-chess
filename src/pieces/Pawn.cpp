@@ -50,9 +50,23 @@ std::vector<int> Pawn::getLegalMoves(Board& board) {
   std::vector<std::vector<int>> ownPossibleMoves = getPossibleMoves();
   std::vector<std::vector<int>> allPossibleMoves;
   std::string ownColor = getColor();
-  std::vector<std::vector<int>> tempBoard = board.getOccupiedSquares();
-  // Ignore this. 
+  King ownKing = nullptr;
+  std::vector<std::vector<Pieces*>> tempBoard = board.getOccupiedSquares();
+  // find King
+  for(int i = 0; i < 8; i++) {
+    for(int j = 0; j < 8; j++) {
+      if(tempBoard[i][j]->getName().compare("King") == 0 && tempBoard[i][j]->getColor().compare(ownColor) == 0) {
+        ownKing = tempBoard[i][j];
+        break;
+      }
+    }
+    if(ownKing)
+      break;
+  }
+  // update position on board (as a check)
+  Board board2 = board; // dw copy constructor is declared
   
+  // Ignore this.
   for(int i = 0; i < 8; i++) {
     for(int j = 0; j < 8; j++) {
       if(board[i][j] != nullptr && ownColor.compare(board[i][j].getColor()) != 0) {
