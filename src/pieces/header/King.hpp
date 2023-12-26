@@ -14,13 +14,13 @@ class King: public Pieces{
 	/*
 	 * return: 2D vector of all moves that's legal
 	 */
-  std::vector<std::vector<int>> getPossibleMoves(std::vector<Pieces> enemyPieces, std::vector<Pieces> ownPieces, King enemyKing) const;
+  std::vector<std::vector<int>> getPossibleMoves(std::vector<Pieces*> enemyPieces, std::vector<Pieces*> ownPieces, King enemyKing*) const;
 
 	/*
 	 * param: vector of all pieces on board.
 	 * return: if in check, return true, else return false.
 	 */
-	bool isInCheck(std::vector<Pieces> enemyPieces, std::vector<Pieces> ownPieces) const;
+	bool isInCheck(Board board) const;
 
 }
 
