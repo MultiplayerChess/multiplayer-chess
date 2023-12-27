@@ -28,11 +28,15 @@ void Pieces::setPosition(const std::vector<int> position) {
 }
 
 bool Pieces::move(Board board, std::vector<std::vector<int>> possibleMoves, std::vector<int> desiredMove) {
+  bool flag = false;
   for(std::vector<int> i : possibleMoves) {
-    if(i[0] == desiredMove[0] && i[1] == desiredMove[1])
-      return false;
+    if(i[0] != desiredMove[0] && i[1] != desiredMove[1])
+      flag = true;
   }
-  if()
+  if(flag) {
+    return !flag;
+  }
+  board.replace(currentPos(), desiredMove);
   setPosition(desiredMove);
   return true;
 }

@@ -63,31 +63,25 @@ std::vector<int> Pawn::getLegalMoves(Board& board) {
     if(ownKing)
       break;
   }
-  // update position on board (as a check)
-  Board board2 = board; // dw copy constructor is declared
-  
-  // Ignore this.
-  for(int i = 0; i < 8; i++) {
-    for(int j = 0; j < 8; j++) {
-      if(board[i][j] != nullptr && ownColor.compare(board[i][j].getColor()) != 0) {
-        std::vector<std::vector<int>> temp = board[i][j].getPossibleMoves();
-        for(int k = 0; k < temp.size(); k++) {
-          allPossibleMoves.push_back(temp[k]);
-        }
-      }
-    }
-  }
-  // check if it can advance twice
+    // check if it can advance twice
   int moveDirection = 1;
   if(getColor().compare("Black") == 0) {
     moveDirection = -1
   }
-  if(getMoveCount() == 0) {
-    if(tempBoard[getPosition()[0]][getPosition()[1]+moveDirection*2] == nullptr) {
-
+  if(getMoveCount() == 0 && tempBoard[getPosition()[0]][getPosition()[1]+moveDirection*2] == nullptr) {
+    ownPossibleMoves.push_back(std::vector<int>{getPosition()[0],getPosition()[1]+moveDirection*2});
+  } else if(tempBoard[getPosition()[0]][getPosition()[1]+moveDirection] == nullptr){
+    ownPossibleMoves.push_back(std::vector<int>{getPosition()[0]mgetPosition()[1]+moveDirection*2});
+  }
+ 
+  for(int i = ownPossibleMoves.size()-1; i >= 0; i--) {
+    Board board2 = board; // dw copy constructor is declared
+    move(board2,currentPos(), ownPossibleMoves[i]);
+    if(ownKing.isInCheck(board2)) {
+      ownPossibleMoves.erase(i);
     }
   }
-  
+  return ownPossibleMoves;
 }
 
 int Pawn::getMoveCount() const {
