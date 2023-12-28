@@ -100,7 +100,7 @@ int Pawn::getMoveTime() const {
   return moveTime_;
 }
 
-bool Pawn::promotion(std::string& piece, Board* board) {
+bool Pawn::promotion(std::string& piece, Board& board) {
   std::unordered_map<std::string, Pieces*> promotionOptions = {
     {"Queen": new Queen(getPosition(), getColor())},
     {"Rook": new Rook(getPosition(), getColor())},

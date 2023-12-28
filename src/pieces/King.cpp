@@ -6,7 +6,7 @@ King::King(int* position, std::string color) {
   setName("King");
 }
 
-std::vector<std::vector<int>> King::getPossibleMoves(Board board) const {
+std::vector<std::vector<int>> King::getPossibleMoves(Board& board) const {
   // to be implemented
   std::vector<int> currentPos = getPosition();
   std::vector<std::vector<Pieces*>> occupied = board.getOccupiedSquares();
@@ -109,14 +109,13 @@ std::vector<std::vector<int>> King::getPossibleMoves(Board board) const {
 
 
 
-bool King::isInCheck(Board board) {
+bool King::isInCheck(Board& board) {
   std::vector<int> currentPos = getPosition();
   std::vector<std::vector<int>> boardPos = board.getOccupiedSquares(); 
-  for(int i = 0; i < enemyPieces.size(); i++) {
-    std::vector<std::vector<int>> possibleMoves = enemyPieces[i]->getPossibleMoves();
-
-    for(int j = 0; j < possibleMoves.size(); j++) {
-      if(currentPos[0] == possibleMoves[j][0] && currentPos[1] == possibleMoves[j][1]) {
+  for(int i = 0; i < boardPos.size(); i++) {
+    for(int j = 0; j < boardPos[i].size(); j++) {
+      std::vector<int> possibleMoves = boardPos[i][j]->getPossibleMoves();
+      if(currentPos[0] == possibleMoves[0] && currentPos[1] == possibleMoves[1]) {
         return true;
       }
     }

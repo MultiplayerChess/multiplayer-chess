@@ -27,7 +27,7 @@ class Rook: public Pieces {
 	 * return: 2D vector of all the possible moves.
 	 * note: knight can move horizontally, but can be obstructed unlike the knight.
 	 */
-  std::vector<std::vector<int>> getPossibleMoves() const;
+  std::vector<std::vector<int>> getPossibleMoves(const Board boards*) const;
 }
 
 #endif
