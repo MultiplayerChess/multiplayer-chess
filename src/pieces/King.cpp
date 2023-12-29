@@ -6,10 +6,11 @@ King::King(int* position, std::string color) {
   setName("King");
 }
 
-std::vector<std::vector<int>> King::getPossibleMoves(Board& board) const {
+std::vector<std::vector<int>> King::getPossibleMoves(const Board& board) const {
   // to be implemented
   std::vector<int> currentPos = getPosition();
   std::vector<std::vector<Pieces*>> occupied = board.getOccupiedSquares();
+
   // this gets the final list of possible moves
   std::vector<std::vector<int>> possibleMoves;
   // I will hard code the logic to check if the king will be in bound because that's easier
@@ -18,7 +19,7 @@ std::vector<std::vector<int>> King::getPossibleMoves(Board& board) const {
   // temp lines
   // uses distance formula to find the distance between kings
 
-  King enemyKing = nullptr;
+  King* enemyKing = nullptr;
   for(int i = 0; i < occupied.size(); i++) {
     for(int j = 0; j < occupied[i].size(); j++) {
       if(occupied[i][j] != nullptr && occupied[i][j].getName().compare("King") == 0 && occupied[i][j].getColor().compare(getColor()) != 0) {
@@ -30,7 +31,7 @@ std::vector<std::vector<int>> King::getPossibleMoves(Board& board) const {
       break;
 
   }
-  std::vector<int> enemyKingPosition = enemyKing.getPosition();
+  std::vector<int> enemyKingPosition = enemyKing->getPosition();
   bool kingsWillTouch = sqrt(pow(currentPos[0] - enemyKingPosition[0],2) + pow(currentPos[1] - enemyKingPosition[1],2)) > 3;
   
   std::vector<std::vector<int>> kingNoGoZone;
@@ -94,28 +95,23 @@ std::vector<std::vector<int>> King::getPossibleMoves(Board& board) const {
         continue;
       }
 
-      // now we check if these moves will land us in check
-      setPosition(std::vector<int>{currentPos[0]+x, currentPos[1]+y});
-      if(!isInCheck(enemyPieces, ownPieces)) {
-
-        possibleMoves.push_back(getPosition());
-
-      }
-      setPosition(currentPos);
     }
   }
   return possibleMoves;
 }
 
+std::vector<std::vector<int>> King::getLegalMoves(const Board& board) const {
+  
+}
 
-
-bool King::isInCheck(Board& board) {
+bool King::isInCheck(Board board) {
   std::vector<int> currentPos = getPosition();
   std::vector<std::vector<int>> boardPos = board.getOccupiedSquares(); 
-  for(int i = 0; i < boardPos.size(); i++) {
-    for(int j = 0; j < boardPos[i].size(); j++) {
-      std::vector<int> possibleMoves = boardPos[i][j]->getPossibleMoves();
-      if(currentPos[0] == possibleMoves[0] && currentPos[1] == possibleMoves[1]) {
+  for(int i = 0; i < enemyPieces.size(); i++) {
+    std::vector<std::vector<int>> possibleMoves = enemyPieces[i]->getPossibleMoves();
+
+    for(int j = 0; j < possibleMoves.size(); j++) {
+      if(currentPos[0] == possibleMoves[j][0] && currentPos[1] == possibleMoves[j][1]) {
         return true;
       }
     }

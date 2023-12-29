@@ -11,14 +11,14 @@ Pawn::Pawn(const Pawn& other) : Pieces(other) {
   moveTime_ = other.moveTime_;
 }
 
-std::vector<std::vector<int>> getPossibleMoves(Board boards*) const {
+std::vector<std::vector<int>> getPossibleMoves(Board& boards) const {
   // there are 3 things that are possible with pawn.
   //
   // on the first move, the pawn has 2 choices. It could move 1 step, or it could move 2 steps.
   // Unless obstructed by another piece.
   // The pawn could move diagonally to capture.
   // the pawn could also en passant.
-  std::vector<std::vector<Pieces>> board = boards.getOccupiedSquares();
+  std::vector<std::vector<Pieces*>> board = boards.getOccupiedSquares();
   std::vector<int> currentPos = getPosition();
   std::vector<std::vector<int>> possibleMoves;
   // checks if it's black or white
@@ -48,10 +48,10 @@ std::vector<std::vector<int>> getPossibleMoves(Board boards*) const {
 
 std::vector<int> Pawn::getLegalMoves(Board& board) {
   std::vector<std::vector<int>> ownPossibleMoves = getPossibleMoves();
-  std::vector<std::vector<int>> allPossibleMoves;
   std::string ownColor = getColor();
-  King ownKing = nullptr;
+  King* ownKing = nullptr;
   std::vector<std::vector<Pieces*>> tempBoard = board.getOccupiedSquares();
+  Board board2 = board; // dw copy constructor is declared
   // find King
   for(int i = 0; i < 8; i++) {
     for(int j = 0; j < 8; j++) {
@@ -66,20 +66,28 @@ std::vector<int> Pawn::getLegalMoves(Board& board) {
     // check if it can advance twice
   int moveDirection = 1;
   if(getColor().compare("Black") == 0) {
-    moveDirection = -1
+    moveDirection = -1;
   }
   if(getMoveCount() == 0 && tempBoard[getPosition()[0]][getPosition()[1]+moveDirection*2] == nullptr) {
     ownPossibleMoves.push_back(std::vector<int>{getPosition()[0],getPosition()[1]+moveDirection*2});
   } else if(tempBoard[getPosition()[0]][getPosition()[1]+moveDirection] == nullptr){
-    ownPossibleMoves.push_back(std::vector<int>{getPosition()[0]mgetPosition()[1]+moveDirection*2});
+    ownPossibleMoves.push_back(std::vector<int>{getPosition()[0], getPosition()[1]+moveDirection*2});
   }
- 
+   
   for(int i = ownPossibleMoves.size()-1; i >= 0; i--) {
-    Board board2 = board; // dw copy constructor is declared
+    Pieces* tempPiece = nullptr;
+    if(board2.getOccupiedSquare()[ownPossibleMoves[i][0]][ownPossibleMoves[i][1]]!=nullptr)
+      tempPiece = board2.getOccupiedSquare()[ownPossibleMoves[i][0]][ownPossibleMoves[i][1]]->clone();
+
     move(board2,currentPos(), ownPossibleMoves[i]);
     if(ownKing.isInCheck(board2)) {
+      move(&board2,ownPossibleMoves[i],currentPos());
       ownPossibleMoves.erase(i);
     }
+    move(&board2, ownPossibleMoves[i], currentPos());
+    board2.setSquare(tempPiece);
+    delete tempPiece;
+    
   }
   return ownPossibleMoves;
 }

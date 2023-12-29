@@ -34,13 +34,19 @@ class Board {
 		 * param: list of all the pieces specified in vector
 		 * return: list of all occupied squares. (color ambiguous)
 		 */
-    // unneeded for now. Might remove in future.
 		std::vector<std::vector<int>> getOccupiedSquares();
 
     /*
      *
      */
+    /*
+     * param: pieces
+     * output: sets the location of the board stored in pieces to the desired piece.
+     * assume the square is null.
+     */
+    void setSquare(Pieces& piece) {
 
+    }
     /*
      * param: the piece that is replacing, the piece to be replaced.
      * output: deletes the piece to be replaced.

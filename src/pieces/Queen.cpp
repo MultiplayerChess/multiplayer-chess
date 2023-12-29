@@ -59,3 +59,34 @@ std::vector<std::vector<int>> Queen::getPossibleMoves(Board& board) {
   }
   return possibleMoves;
 }
+
+std::vector<std::vector<int>> Queen::getLegalMoves(Board& board) const {
+  std::vector<std::vector<int>> ownPossibleMoves = getPossibleMoves();
+  std::vector<int> ownPosition = getPosition();
+  King* ownKing;
+  Board board2 = boards;
+  for(int i = 0; i < tempBoard.size(); i++) {
+    for(int j = 0; j < tempBoard[i].size(); j++) {
+      if(tempBoard[i][j]->getName().compare("King") == 0 && tempBoard[i][j]->getColor().compare(getColor()) == 0) {
+        ownKing = tempBoard[i][j];
+        break;
+      }
+    }
+    if(!ownKing) {
+      break;
+    }
+  }
+  for(int i = ownPossibleMoves.size; i >= 0; i--) {
+    Pieces* tempPiece = nullptr;
+    if(tempBoard[ownPossibleMoves[i][0]][ownPossibleMoves[i][1]] != nullptr)
+      tempPiece = tempBoard[ownPossibleMoves[i][0]][ownPossibleMoves[i][1]]->clone();
+    move(board2, currentPos(), ownPossibleMoves[i]);
+    if(ownKing.isInCheck()) {
+      move(board2, ownPossibleMoves[i], currentPos());
+      ownPossibleMoves.erase(i);
+    }
+    board2.setSquare(tempPiece);
+    delete tempPiece;
+  }
+  return ownPossibleMoves;
+}

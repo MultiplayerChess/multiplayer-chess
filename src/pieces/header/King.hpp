@@ -18,7 +18,7 @@ class King: public Pieces{
 	/*
 	 * return: 2D vector of all moves that's legal
 	 */
-  std::vector<std::vector<int>> getPossibleMoves(std::vector<Pieces*> enemyPieces, std::vector<Pieces*> ownPieces, King enemyKing*) const;
+  std::vector<std::vector<int>> getPossibleMoves(Board& board) const;
 
 	/*
 	 * param: vector of all pieces on board.

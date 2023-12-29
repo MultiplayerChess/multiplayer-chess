@@ -23,6 +23,18 @@ Board::Board() {
   board_[7][7] = new Rook(std::vector<int>{7,7}, "Black");
 
 }
+
+// deconstructor
+Board::~Board() {
+  for(int i = 0; i < 8; i++) {
+    for(int j = 0; j < 8; j++) {
+      if(board_[i][j]!=nullptr) {
+        delete board_[i][j];
+      }
+    }
+  }
+}
+
 // Copy constructor for Board class (deep copy)
 Board::Board(const Board& other) : totalMoves_(other.totalMoves_) {
   for (int row = 0; row < 8; ++row) {
@@ -57,6 +69,11 @@ Board& Board::operator=(const Board& other) {
 }
 std::vector<std::vector<Pieces*>> Board::getOccupiedSquares() {
   return board_;
+}
+
+void Board::setSquare(Pieces& piece) {
+  std::vector<int> piecePos = piece->getPosition();
+  board_[piecePos[0]][piecePos[1]] = piece->clone();
 }
 
 void Board::replace(std::vector<int> pos1, std::vector<int> pos2) {
