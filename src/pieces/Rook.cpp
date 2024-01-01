@@ -42,9 +42,10 @@ std::vector<std::vector<int>> getPossibleMoves(const Board& board) const {
 }
 
 
-std::vector<std::vector<int>> Rook::getLegalMoves(const Board boards) {
+std::vector<std::vector<int>> Rook::getLegalMoves(const Board& boards) {
   std::vector<std::vector<int>> ownPossibleMoves = getPossibleMoves();
   std::vector<int> ownPosition = getPosition();
+  std::vector<std::vector<int>> tempBoard = boards.getOccupiedSquares();
   King* ownKing;
   Board board2 = boards;
   for(int i = 0; i < tempBoard.size(); i++) {

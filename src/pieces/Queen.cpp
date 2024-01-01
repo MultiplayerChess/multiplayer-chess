@@ -64,7 +64,8 @@ std::vector<std::vector<int>> Queen::getLegalMoves(Board& board) const {
   std::vector<std::vector<int>> ownPossibleMoves = getPossibleMoves();
   std::vector<int> ownPosition = getPosition();
   King* ownKing;
-  Board board2 = boards;
+  Board board2 = board;
+  std::vector<std::vector<Pieces*>> tempBoard = board2.getOccupiedSquares();
   for(int i = 0; i < tempBoard.size(); i++) {
     for(int j = 0; j < tempBoard[i].size(); j++) {
       if(tempBoard[i][j]->getName().compare("King") == 0 && tempBoard[i][j]->getColor().compare(getColor()) == 0) {
