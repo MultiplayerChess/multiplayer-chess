@@ -29,6 +29,7 @@ public class King: public Pieces{
   // I mustve been cooking when I thought this needed to be overwritten, but I forgot why so :/
   bool move(Board board, std::vector<std::vector<int>> possibleMoves, std::vector<int> desiredMove);
 
+  bool canCastle() const;
   /*
    * return: moveCount
    */

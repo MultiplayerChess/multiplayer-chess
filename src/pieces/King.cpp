@@ -130,6 +130,27 @@ bool King::isInCheck(Board board) {
   return false;
 }
 
+// direction left = 0 right = 1
+bool King::canCastle(int direction) const {
+  if(getMoveCount() != 0) {
+    return false;
+  }
+  if(isInCheck()) {
+    return false;
+  }
+  std::vector<int> currentPos = getPosition();
+  std::vector<std::vector<Pieces*>> tempBoard = board.getPossibleMoves();
+
+  if(direction == 0 && tempBoard[0][getPosition()[1]] != nullptr && tempBoard[0][getPosition()[1]].getName().compare("Rook") == 0 && tempBoard[0][getPosition()[1]].getMoveCount() == 0) {
+    return true;
+  }
+  if(direction == 1  tempBoard[7][getPosition()[1]] != nullptr && tempBoard[7][getPosition()[1]].getName().compare("Rook") == 0 && tempBoard[7][getPosition()[1]].getMoveCount() == 0) {
+    
+    return true;
+  }
+  return false;
+}
+
 int King::getMoveCount() const {
   return moveCount_;
 }
