@@ -11,7 +11,9 @@ class Bishop: public Pieces {
 		 */
 		Bishop(std::vector<int> position, std::string color);
 
-
+    Pieces* clone() const override {
+      return new Bishop(*this);
+    }
 		/*
 		 * output: all the possible moves that the piece can make
 		 * return: 2D array of all the possible moves.

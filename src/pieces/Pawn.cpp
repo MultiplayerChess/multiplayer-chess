@@ -6,60 +6,121 @@ Pawn::Pawn(std::vector<int> position, std::string color) {
   setName("Pawn");
 }
 
-std::vector<std::vector<int>> getPossibleMoves(std::vector<Pieces> enemyPieces, std::vector<Pieces> ownPieces, King ownKing) const {
+Pawn::Pawn(const Pawn& other) : Pieces(other) {
+  moveCount_ = other.moveCount_;
+  moveTime_ = other.moveTime_;
+}
+
+std::vector<std::vector<int>> getPossibleMoves(Board& boards) const {
   // there are 3 things that are possible with pawn.
   //
   // on the first move, the pawn has 2 choices. It could move 1 step, or it could move 2 steps.
   // Unless obstructed by another piece.
   // The pawn could move diagonally to capture.
   // the pawn could also en passant.
-  int* currentPos[2] = getPosition();
+  std::vector<std::vector<Pieces*>> board = boards.getOccupiedSquares();
+  std::vector<int> currentPos = getPosition();
+  std::vector<std::vector<int>> possibleMoves;
   // checks if it's black or white
   int moveDirection = 0;
   if(getName().compare("White") == 0) {
     moveDirection = 1;
   } else {
-    moveDirection = -1
+    moveDirection = -1;
   }
-  
   for(int i = -1; i <= 1; i++) {
-    std::vector<int> temp;
-
-    for(int j = 0; j < enemyPieces.size(); j++) {
-      int* enemyPosition[2] = enemyPieces[j].getPosition();
-      int* ownPosition[2] = getPosition();
-        // checks if there is an ememy straight ahead of the pawn
-      bool enemyInFront = false;
-      if(enemyPosition[1] == ownPosition[1]+moveDirection && enemyPosition[0] == ownPosition[0]) {
-        enemyInFront = true;
-      } else if(enemyPosition[1] == ownPosition[1]+moveDirection && enemyPosition[0] == ownPosition[0]+i) {
-
-
-
-      }
+    if(currentPos[0]+i == 8 || currentPos[0]+i < 0 || currentPos[1]+moveDirection == 8 || currentPos[1]+moveDirection < 0) {
+      continue;
     }
-    if(i == 0) {
-      if(!enemyInFront) {
-        // checks if there is a piece obstructing its path.
-        bool obstructed = false;
-        for(int j = 0; j < ownPieces.size(); j++) {
-          int* ownPiecePosition[2] = ownPieces[j].getPosition();
-          if(ownPiecePosition[0] == ownPosition[0]+1 && ownPiecePosition[1] == ownPosition[1]) {
-            obstructed = true;
-            break;
-          }
-        }
-        if(!obstructed) {
-          temp.push_back(ownPosition[0]+moveDirection);
-          temp.push_back(ownPosition[1])
-        }
-      }
+    if(i == 0)
+      continue;
+    bool blocked = false;
+    // sorry I could've made this more readable with a variable or a method :(
+    if(board[currentPos[0]+i][currentPos[1]+moveDirection].getColor().compare(getColor()) == 0) {
+      blocked = true;
+    }
+    if(!blocked) {
+      possibleMoves.push_back({currentPos[0]+i,currentPos[1]+moveDirection);
     }
   }
-  
-  
-
+  return possibleMoves;
 }
-  
-  setPosition();
+
+std::vector<int> Pawn::getLegalMoves(Board& board) {
+  std::vector<std::vector<int>> ownPossibleMoves = getPossibleMoves();
+  std::string ownColor = getColor();
+  King* ownKing = nullptr;
+  std::vector<std::vector<Pieces*>> tempBoard = board.getOccupiedSquares();
+  Board board2 = board; // dw copy constructor is declared
+  // find King
+  for(int i = 0; i < 8; i++) {
+    for(int j = 0; j < 8; j++) {
+      if(tempBoard[i][j]->getName().compare("King") == 0 && tempBoard[i][j]->getColor().compare(ownColor) == 0) {
+        ownKing = tempBoard[i][j];
+        break;
+      }
+    }
+    if(ownKing)
+      break;
+  }
+    // check if it can advance twice
+  int moveDirection = 1;
+  if(getColor().compare("Black") == 0) {
+    moveDirection = -1;
+  }
+  if(getMoveCount() == 0 && tempBoard[getPosition()[0]][getPosition()[1]+moveDirection*2] == nullptr) {
+    ownPossibleMoves.push_back(std::vector<int>{getPosition()[0],getPosition()[1]+moveDirection*2});
+  } else if(tempBoard[getPosition()[0]][getPosition()[1]+moveDirection] == nullptr){
+    ownPossibleMoves.push_back(std::vector<int>{getPosition()[0], getPosition()[1]+moveDirection*2});
+  }
+   
+  for(int i = ownPossibleMoves.size()-1; i >= 0; i--) {
+    Pieces* tempPiece = nullptr;
+    if(board2.getOccupiedSquare()[ownPossibleMoves[i][0]][ownPossibleMoves[i][1]]!=nullptr)
+      tempPiece = board2.getOccupiedSquare()[ownPossibleMoves[i][0]][ownPossibleMoves[i][1]]->clone();
+
+    move(board2,currentPos(), ownPossibleMoves[i]);
+    if(ownKing.isInCheck(board2)) {
+      move(&board2,ownPossibleMoves[i],currentPos());
+      ownPossibleMoves.erase(i);
+    }
+    move(&board2, ownPossibleMoves[i], currentPos());
+    board2.setSquare(tempPiece);
+    delete tempPiece;
+    
+  }
+  return ownPossibleMoves;
+}
+
+int Pawn::getMoveCount() const {
+  return moveCount_;
+}
+
+void Pawn::setMoveTime(int moveTime) {
+  moveTime_ = moveTime;
+}
+
+void Pawn::incrementMoveCount() {
+   moveCount_++;
+}
+
+int Pawn::getMoveTime() const {
+  return moveTime_;
+}
+
+bool Pawn::promotion(std::string& piece, Board& board) {
+  std::unordered_map<std::string, Pieces*> promotionOptions = {
+    {"Queen": new Queen(getPosition(), getColor())},
+    {"Rook": new Rook(getPosition(), getColor())},
+    {"Bishop": new Bishop(getPosition(), getColor())},
+    {"Knight": new Knight(getPosition(), getColor()}
+  };
+  std::vector<std::vector<int>> occupied = board->getOccupiedSquares();
+  std::string name = getName();
+  if((name.compare("White") == 0 && getPosition()[1] == 7) 
+    || (name.compare("Black") == 0 && getPosition()[1] == 0)) {
+    board->replace(promotionOptions[piece],this);
+    return true;
+  }
+  return false;
 }

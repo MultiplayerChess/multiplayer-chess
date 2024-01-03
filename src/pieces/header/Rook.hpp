@@ -11,6 +11,11 @@ class Rook: public Pieces {
 	 */
 	Rook(std::vector<int> position, std::string& color);
 
+
+  Pieces* clone() const override {
+    return new Rook(*this);
+  }
+
 	/*
 	 * output: destructor
 	 */
@@ -20,9 +25,13 @@ class Rook: public Pieces {
 	/*
 	 * output: get all possible moves.
 	 * return: 2D vector of all the possible moves.
-	 * note: knight can move horizontally, but can be obstructed unlike the knight.
 	 */
-  std::vector<std::vector<int>> getPossibleMoves() const;
-}
+  std::vector<std::vector<int>> getPossibleMoves(const Board& boards) const;
 
+  /*
+   * output: all possible moves that don't land you in check
+   */
+  std::vector<std::vector<int>> getLegalMoves(const Board boards);
+
+}
 #endif

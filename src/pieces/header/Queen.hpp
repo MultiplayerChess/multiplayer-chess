@@ -11,6 +11,9 @@ class Queen: public Pieces {
 		 */
 		Queen(std::vector<int> position, std::string color);
 
+    Pieces* clone() const override {
+      return new Queen(*this);
+    }
 
 		/*
 		 * output: all the possible moves that the piece can do
@@ -18,7 +21,9 @@ class Queen: public Pieces {
 		 * note: queen can move horizontal, vertical, and diagonal.
 		 */
 
-    std::vector<std::vector<int>> getPossibleMoves(Board board) const;
+    std::vector<std::vector<int>> getPossibleMoves(Board& board) const;
+
+    std::vector<std::vector<int>> getLegalMoves(Board& board) const;
 }
 
 #endif

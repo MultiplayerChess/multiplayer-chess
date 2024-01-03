@@ -23,11 +23,15 @@ class Pieces {
 		 */
 		~Pieces();
 
+
+    // copy constructor
+    Pieces(const Pieces& other);
 		/*
 		 * return: color of piece
 		 */
 		std::string getColor() const;
-
+    
+    virtual Pieces* clone() const = 0;
 		/*
 		 * param: color
 		 * output: changes the color to specified color
@@ -50,14 +54,28 @@ class Pieces {
 		 * return: status of piece
 		 */
 		bool getStatus() const;
-		
-		
+	
+    /*
+     * output: dest
+     */
+
+    /*
+     * param: vector of all possible moves and where the player wants to move it
+     * output: move the piece if the move is in the vector of moves
+     */
+    bool move(std::vector<Board board,std::vector<int>> possibleMoves, std::vector<int> desiredMove);
+
 		/*
 		 * param: status to set the piece
 		 * output: sets the status to status specified in parameter
 		 */
 		void setStatus(const bool alive);
 
+
+    /*
+     * param: moves
+     *
+     */
 
 		/*
 		 * param: name of the piece

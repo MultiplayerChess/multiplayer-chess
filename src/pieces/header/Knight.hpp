@@ -12,7 +12,10 @@ class Knight: public Pieces{
 		 * note: should use the methods defined in Pieces.hpp to set position and color, as those member variables are private
 		 */
 		Knight(std::vector<int> position, std::string color);
-
+    
+    Pieces* clone() const override {
+      return new Knight(*this);
+    }
 		/*
 		 * output: all the possible moves that the piece can do while still being a legal move
 		 * return: 2D array of all the possible moves.
