@@ -4,7 +4,7 @@
 #define ROOK_HPP
 
 class Rook: public Pieces {
-
+  public:
 	/*
 	 * param: starting position, color (black/white)
 	 * output: sets the position to specified position
@@ -33,5 +33,11 @@ class Rook: public Pieces {
    */
   std::vector<std::vector<int>> getLegalMoves(const Board boards);
 
+  /*
+   * return: moveCount_
+   */
+  int getMoveCount() const;
+  private:
+  int moveCount_;
 }
 #endif

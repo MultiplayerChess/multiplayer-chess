@@ -74,3 +74,6 @@ std::vector<std::vector<int>> Rook::getLegalMoves(const Board& boards) {
   return ownPossibleMoves;
 }
 
+int Rook::getMoveCount() const {
+  return moveCount_;
+}
